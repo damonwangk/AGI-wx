@@ -1,6 +1,6 @@
 # AGI Assistant（Python）
 
-基于 Python 3.12、FastAPI 和 asyncio 的多能力智能体系统。项目完整保留原 Go 版本的 HTTP 契约与前端，支持普通对话、RAG、工具调用、ReAct 任务图、三层记忆、知识图谱、沙箱和 MCP 工具。
+基于 Python 3.12、FastAPI 和 asyncio 的多能力智能体系统。支持普通对话、RAG、工具调用、ReAct 任务图、三层记忆、知识图谱、沙箱和 MCP 工具。
 
 ## 核心能力
 
