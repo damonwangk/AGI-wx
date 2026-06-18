@@ -1,8 +1,8 @@
 services:
   # ===== AI Agent 应用 =====
-  final-agent:
+  agi-wx:
     build: .
-    container_name: final-ai-agent
+    container_name: agi-wx
     ports:
       - "8090:8090"
     environment:

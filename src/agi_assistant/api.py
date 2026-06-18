@@ -34,7 +34,7 @@ def create_app(config: AppConfig | None = None, connect_infrastructure: bool = T
         await agent.close()
         await infra.close()
 
-    app = FastAPI(title="AGI Assistant", version="1.0.0", lifespan=lifespan)
+    app = FastAPI(title="AGI-wx", version="1.0.0", lifespan=lifespan)
     app.state.config, app.state.infra, app.state.agent = cfg, infra, agent
 
     @app.post("/api/chat")

@@ -11,7 +11,7 @@ resolution-markers = [
 ]
 
 [[package]]
-name = "agi-assistant"
+name = "agi-wx"
 version = "1.0.0"
 source = { editable = "." }
 dependencies = [

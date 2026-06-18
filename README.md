@@ -1,4 +1,4 @@
-# AGI Assistant（Python）
+# AGI-wx
 
 基于 Python 3.12、FastAPI 和 asyncio 的多能力智能体系统。项目完整保留原 Go 版本的 HTTP 契约与前端，支持普通对话、RAG、工具调用、ReAct 任务图、三层记忆、知识图谱、沙箱和 MCP 工具。
 
@@ -40,7 +40,7 @@ src/agi_assistant/
 ```bash
 conda activate test1-rag
 python -m pip install -e '.[dev]'
-agi-assistant
+agi-wx
 ```
 
 访问：<http://localhost:8090>
@@ -63,7 +63,7 @@ llm:
 可通过 `AGI_CONFIG` 指定其他配置文件：
 
 ```bash
-AGI_CONFIG=config/config.docker.yaml agi-assistant
+AGI_CONFIG=config/config.docker.yaml agi-wx
 ```
 
 未配置 LLM 或外部数据库时，系统使用本地 Mock、内存检索和日志事件降级，HTTP 服务仍可启动。

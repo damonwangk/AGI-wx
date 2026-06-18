@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir .
 
 EXPOSE 8090
 
-CMD ["agi-assistant"]
+CMD ["agi-wx"]
