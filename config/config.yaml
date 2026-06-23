@@ -2,7 +2,7 @@
 llm:
   api_url: https://api.deepseek.com/chat/completions
   api_key: "${DEEPSEEK_API_KEY}"
-  model: deepseek-v4-pro
+  model: deepseek-chat
   temperature: 0.7
 embedding:
   api_url: https://ark.cn-beijing.volces.com/api/v3/embeddings/multimodal

@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 import yaml
+from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 
 
@@ -167,6 +168,8 @@ def _expand_env(value: Any) -> Any:
 
 def load_config(path: str | Path | None = None) -> AppConfig:
     """加载配置文件；AGI_CONFIG 可覆盖默认路径。"""
+    # 仅从当前工作目录加载 .env，避免意外读取其他项目的密钥。
+    load_dotenv(dotenv_path=Path.cwd() / ".env", override=False)
     config_path = Path(path or os.getenv("AGI_CONFIG", "config/config.yaml"))
     if not config_path.exists():
         return AppConfig()

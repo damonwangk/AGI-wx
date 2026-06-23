@@ -60,6 +60,8 @@ llm:
   api_key: "${DEEPSEEK_API_KEY}"
 ```
 
+本地运行时可复制 `.env.example` 为 `.env` 并填写 DeepSeek API Key；应用会自动读取该文件，`.env` 已被 Git 忽略。
+
 可通过 `AGI_CONFIG` 指定其他配置文件：
 
 ```bash

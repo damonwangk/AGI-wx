@@ -9,6 +9,8 @@ from collections import defaultdict
 from collections.abc import Awaitable, Callable
 from typing import Any
 
+from pydantic import ValidationError
+
 from .config import AppConfig
 from .infrastructure import Infrastructure
 from .llm import LLMClient, parse_json_payload
@@ -38,9 +40,21 @@ class GraphRuntime:
         if isinstance(parsed, list):
             for index, item in enumerate(parsed):
                 if isinstance(item, dict) and item.get("tool") in selected:
-                    item.setdefault("id", f"step-{index + 1}")
-                    item.setdefault("name", f"执行 {item['tool']}")
-                    nodes.append(TaskNode.model_validate(item))
+                    # LLM 可能返回数字 ID；统一转换为任务模型要求的字符串。
+                    normalized = {
+                        **item,
+                        "id": str(item.get("id", f"step-{index + 1}")),
+                        "name": str(item.get("name", f"执行 {item['tool']}")),
+                        "tool": str(item["tool"]),
+                        "params": item.get("params") if isinstance(item.get("params"), dict) else {},
+                        "depends_on": [str(value) for value in item.get("depends_on", [])],
+                        "race_group": str(item.get("race_group") or ""),
+                    }
+                    try:
+                        nodes.append(TaskNode.model_validate(normalized))
+                    except ValidationError:
+                        # 单个规划节点格式错误时跳过，最终使用规则规划兜底。
+                        continue
         if not nodes:
             nodes = self._rule_plan(query, selected)
         return TaskState(id=str(uuid.uuid4()), query=query, nodes=nodes)

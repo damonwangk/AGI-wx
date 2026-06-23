@@ -3,45 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 小助手 ✨</title>
+<title>AI 小助手</title>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg-from:    #fff5f7;
-  --bg-to:      #f0e6ff;
-  --sidebar:    rgba(255,255,255,0.65);
-  --card:       rgba(255,255,255,0.72);
-  --card-solid: #ffffff;
-  --border:     rgba(196,181,253,0.30);
-  --border2:    rgba(249,168,212,0.20);
-  --text:       #3d3250;
-  --text2:      #6b5b7b;
-  --text3:      #a89bb5;
-  --primary:    #c4b5fd;
-  --primary-d:  #a78bfa;
-  --pink:       #f9a8d4;
-  --pink-d:     #f472b6;--pink-l:     #fce7f3;
-  --green:      #6ee7b7;
-  --green-l:    #d1fae5;
-  --amber:      #fbbf24;
-  --amber-l:    #fef3c7;
-  --red:        #fb7185;
-  --red-l:      #ffe4e6;
-  --blue:       #93c5fd;
-  --blue-l:     #dbeafe;
-  --shadow-pink:  0 4px 20px rgba(249,168,212,0.18);
-  --shadow-purple:0 4px 20px rgba(196,181,253,0.18);
-  --shadow-soft:  0 2px 12px rgba(160,130,200,0.10);
-  --radius-sm:  10px;
-  --radius-md:  16px;
-  --radius-lg:  22px;
+  --bg-from:    #f7f6f2;
+  --bg-to:      #f7f6f2;
+  --sidebar:    #efeee9;
+  --card:       #fffefa;
+  --card-solid: #fffefa;
+  --border:     #dcd9d1;
+  --border2:    #e8e5de;
+  --text:       #2d2c28;
+  --text2:      #625f57;
+  --text3:      #918d83;
+  --primary:    #d97757;
+  --primary-d:  #b95738;
+  --pink:       #d97757;
+  --pink-d:     #b95738;
+  --pink-l:     #f6e7e0;
+  --green:      #4f7b65;
+  --green-l:    #e4eee8;
+  --amber:      #b47b32;
+  --amber-l:    #f5ead8;
+  --red:        #b34e43;
+  --red-l:      #f5e4e1;
+  --blue:       #55758c;
+  --blue-l:     #e4ebef;
+  --shadow-pink:  0 1px 2px rgba(45,44,40,0.08);
+  --shadow-purple:0 1px 2px rgba(45,44,40,0.08);
+  --shadow-soft:  0 1px 2px rgba(45,44,40,0.06);
+  --radius-sm:  7px;
+  --radius-md:  10px;
+  --radius-lg:  14px;
   --radius-pill: 999px;
 }
 
 body {
-  font-family: "Hiragino Sans", "Yu Gothic", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: linear-gradient(135deg, var(--bg-from) 0%, var(--bg-to) 50%, #ede9fe 100%);
+  font-family: "Avenir Next", "Hiragino Sans GB", "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-from);
   color: var(--text);
   height: 100vh;
   display: flex;
@@ -50,40 +51,9 @@ body {
   position: relative;
 }
 
-/* ── 背景装饰 ── */
-.bg-decor {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
-.bg-decor .star {
-  position: absolute;
-  font-size: 10px;
-  opacity: 0;
-  animation: twinkle 4s ease-in-out infinite;
-}
-@keyframes twinkle {
-  0%,100% { opacity: 0; transform: scale(0.5); }
-  50%     { opacity: 0.7; transform: scale(1.2); }
-}
-.bg-decor .sakura {
-  position: absolute;
-  font-size: 14px;
-  opacity: 0;
-  animation: sakuraFall linear infinite;
-}
-@keyframes sakuraFall {
-  0%   { opacity: 0; transform: translateY(-20px) rotate(0deg) translateX(0); }
-  10%  { opacity: 0.6; }
-  90%  { opacity: 0.4; }
-  100% { opacity: 0; transform: translateY(100vh) rotate(720deg) translateX(80px); }
-}
-
 /* ── scrollbar ── */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
-::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: #b8b4aa; border-radius: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 
 /* ════════════════════════════════════
@@ -113,17 +83,13 @@ body {
 }
 .logo-mark {
   width: 42px; height: 42px;
-  background: linear-gradient(135deg, var(--pink) 0%, var(--primary) 100%);
-  border-radius: 14px;
+  background: #2d2c28;
+  color: #f7f6f2;
+  border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
+  font: 700 18px/1 Georgia, serif;
   flex-shrink: 0;
   box-shadow: var(--shadow-pink);
-  animation: logoPulse 3s ease-in-out infinite;
-}
-@keyframes logoPulse {
-  0%,100% { box-shadow: 0 4px 16px rgba(249,168,212,0.25); }
-  50%     { box-shadow: 0 4px 24px rgba(249,168,212,0.45); }
 }
 .logo-name  { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: 0.3px; }
 .logo-sub   { font-size: 11px; color: var(--text3); margin-top: 2px; letter-spacing: 0.5px; }
@@ -231,7 +197,7 @@ body {
 .new-chat-btn {
   margin: 0 14px 14px;
   padding: 10px;
-  background: linear-gradient(135deg, var(--pink) 0%, var(--primary) 100%);
+  background: #2d2c28;
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
@@ -243,7 +209,7 @@ body {
   box-shadow: var(--shadow-pink);
   letter-spacing: 0.3px;
 }
-.new-chat-btn:hover { box-shadow: 0 6px 24px rgba(249,168,212,0.35); transform: translateY(-1px); }
+.new-chat-btn:hover { background: #44423c; box-shadow: 0 2px 6px rgba(45,44,40,.18); transform: translateY(-1px); }
 .new-chat-btn:active { transform: translateY(0); }
 
 /* ════════════════════════════════════
@@ -415,11 +381,12 @@ body {
 .messages {
   flex: 1;
   overflow-y: auto;
-  padding: 24px 22px;
+  padding: 28px 32px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
+.messages > .msg-row { width: min(980px, 100%); margin-left: auto; margin-right: auto; }
 
 /* Welcome */
 .welcome {
@@ -427,13 +394,15 @@ body {
   flex: 1; text-align: center; padding: 40px;
 }
 .welcome-icon {
-  font-size: 56px;
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #2d2c28;
+  color: #f7f6f2;
+  font: 700 17px/1 Georgia, serif;
   margin-bottom: 16px;
-  animation: welcomeFloat 3s ease-in-out infinite;
-}
-@keyframes welcomeFloat {
-  0%,100% { transform: translateY(0); }
-  50%     { transform: translateY(-8px); }
 }
 .welcome-title { font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
 .welcome-desc  { font-size: 14px; color: var(--text2); line-height: 1.8; max-width: 400px; }
@@ -454,8 +423,8 @@ body {
   display: flex; align-items: center; justify-content: center;
   font-size: 16px;
 }
-.avatar.ai   { background: linear-gradient(135deg, var(--primary), #ddd6fe); box-shadow: var(--shadow-purple); }
-.avatar.user { background: linear-gradient(135deg, var(--pink), #fbcfe8); box-shadow: var(--shadow-pink); }
+.avatar.ai   { background: #2d2c28; color: #f7f6f2; box-shadow: var(--shadow-purple); font: 700 13px/1 Georgia, serif; }
+.avatar.user { background: #e8e5de; color: #5e5a51; box-shadow: var(--shadow-pink); font-weight: 700; }
 
 .msg-body { max-width: 68%; display: flex; flex-direction: column; gap: 4px; }
 .msg-row.user .msg-body { align-items: flex-end; }
@@ -470,16 +439,14 @@ body {
 }
 .bubble.ai {
   background: var(--card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border);
   border-top-left-radius: 6px;
   color: var(--text);
   box-shadow: var(--shadow-soft);
 }
 .bubble.user {
-  background: linear-gradient(135deg, var(--pink), var(--primary));
-  color: #fff;
+  background: #e9ddd6;
+  color: var(--text);
   border-top-right-radius: 6px;
   box-shadow: var(--shadow-pink);
 }
@@ -792,7 +759,7 @@ body {
 
 .send-btn {
   width: 46px; height: 46px; flex-shrink: 0;
-  background: linear-gradient(135deg, var(--pink) 0%, var(--primary) 100%);
+  background: #d97757;
   border: none; border-radius: 14px;
   color: #fff; font-size: 18px;
   cursor: pointer;
@@ -800,7 +767,7 @@ body {
   box-shadow: var(--shadow-pink);
   transition: box-shadow .2s, transform .15s;
 }
-.send-btn:hover   { box-shadow: 0 6px 24px rgba(249,168,212,0.4); transform: translateY(-1px); }
+.send-btn:hover   { background: #c56849; box-shadow: 0 3px 10px rgba(185,87,56,.24); transform: translateY(-1px); }
 .send-btn:active  { transform: translateY(0) scale(.96); }
 .send-btn:disabled { opacity: .4; cursor: default; transform: none; box-shadow: none; }
 .send-btn.stop {
@@ -826,28 +793,71 @@ body {
   user-select: none;
 }
 .hint-chip:hover { border-color: var(--pink); color: var(--pink-d); background: rgba(249,168,212,0.06); box-shadow: var(--shadow-soft); }
+
+/* Claude Code 桌面端风格：克制的暖灰层级与陶土色交互。 */
+.sidebar,
+.controls-bar,
+.input-area,
+.bubble.ai,
+.tool-picker,
+.doc-viewer { backdrop-filter: none; -webkit-backdrop-filter: none; }
+.sidebar { box-shadow: inset -1px 0 0 rgba(255,255,255,.45); }
+.sidebar-logo { padding: 18px; }
+.logo-name { font-size: 17px; letter-spacing: -.2px; }
+.sec-label { color: var(--text3); font-size: 10px; letter-spacing: .85px; }
+.upload-zone { background: rgba(255,255,255,.45); border-width: 1px; border-color: #c9c5bb; }
+.upload-zone:hover, .upload-zone.drag { background: #fffefa; border-color: var(--primary); box-shadow: none; }
+.session-item:hover { background: rgba(255,255,255,.55); }
+.session-item.active { background: #fffefa; border-color: var(--border); box-shadow: none; }
+.sess-dot { color: var(--primary); font-size: 7px; }
+.controls-bar { min-height: 58px; background: #f7f6f2; padding: 10px 28px; }
+.rag-toggle-wrap, .tools-btn { background: #fffefa; border-width: 1px; border-radius: 8px; box-shadow: none; }
+.rag-toggle-wrap:hover, .tools-btn:hover { border-color: #aaa69c; box-shadow: none; }
+.rag-toggle-wrap.on, .tools-btn.active { border-color: var(--primary); color: var(--primary-d); background: #fbf2ed; box-shadow: none; }
+.toggle-pill { background: #c9c5bb; }
+.rag-toggle-wrap.on .toggle-pill { background: var(--primary); }
+.tools-btn .tool-count { background: #2d2c28; border-radius: 5px; }
+.tool-picker { border-radius: 10px; box-shadow: 0 16px 40px rgba(45,44,40,.14); }
+.picker-title { color: var(--text3); }
+.picker-item:hover { background: #f3f1ec; }
+.picker-item-icon { width: 24px; color: var(--text2); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+.mcp-submit { background: #2d2c28; box-shadow: none; }
+.controls-right { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; }
+.welcome-title { letter-spacing: -.4px; }
+.msg-row { animation-duration: .2s; }
+.bubble { border-radius: 10px; }
+.think-body { background: #faf9f6; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.think-badge, .step-type { border-radius: 5px; }
+.badge-react, .step-thought { background: #eee9e3; color: #615b52; }
+.badge-tool, .step-action { background: #f6e7e0; color: #9f4d33; }
+.badge-rag, .step-observation { background: #e4eee8; color: #426753; }
+.step-row { border-bottom-color: var(--border2); }
+.step-params, .doc-viewer-content { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+.input-area { background: #f7f6f2; padding: 14px 28px 18px; }
+.input-row, .input-hint { width: min(980px, 100%); margin-left: auto; margin-right: auto; }
+.input-box { background: #fffefa; border-width: 1px; border-radius: 10px; }
+.input-box:focus { border-color: #a7a297; box-shadow: 0 0 0 3px rgba(45,44,40,.07); background: #fffefa; }
+.send-btn { border-radius: 10px; box-shadow: none; font-size: 16px; }
+.hint-chip { background: transparent; border-radius: 7px; }
+.hint-chip:hover { background: #fffefa; border-color: #aaa69c; color: var(--text); box-shadow: none; }
 </style>
 </head>
 <body>
 
-<!-- 背景装饰 -->
-<div class="bg-decor" id="bgDecor"></div>
-
 <!-- ═══════════════ SIDEBAR ═══════════════ -->
 <aside class="sidebar">
   <div class="sidebar-logo">
-    <div class="logo-mark">🐱</div>
+    <div class="logo-mark">C</div>
     <div>
       <div class="logo-name">AI 小助手</div>
-      <div class="logo-sub">輕小說風 · 六合一</div>
     </div>
   </div>
 
-  <!-- 私人黑洞 -->
-  <div class="sec-label">📮 私人黑洞</div>
+  <!-- 文件上传 -->
+  <div class="sec-label">文件上传</div>
   <div class="blackhole">
     <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
-      <div class="uz-icon">🌸</div>
+      <div class="uz-icon">↑</div>
       <div class="uz-text">上传个人文件</div>
       <div class="uz-sub">点击或拖拽到此处</div>
     </div>
@@ -856,7 +866,7 @@ body {
   </div>
 
   <div class="sec-label sec-label-row">
-    <span>📚 本地文档库</span>
+    <span>本地文档库</span>
     <button class="mini-refresh" type="button" onclick="loadLibraryDocs(event)">刷新</button>
   </div>
   <div class="blackhole library-panel">
@@ -864,12 +874,12 @@ body {
   </div>
 
   <!-- 近期对话 -->
-  <div class="sec-label">🎀 近期对话</div>
+  <div class="sec-label">近期对话</div>
   <div class="recent" id="sessionList">
     <div class="sess-empty">暂无对话记录</div>
   </div>
 
-  <button class="new-chat-btn" onclick="newSession()">✨ 新建对话</button>
+  <button class="new-chat-btn" onclick="newSession()">＋ 新建对话</button>
 </aside>
 
 <!-- ═══════════════ MAIN ═══════════════ -->
@@ -879,12 +889,12 @@ body {
   <div class="controls-bar">
     <div class="rag-toggle-wrap" id="ragToggle" onclick="toggleRAG()">
       <div class="toggle-pill"></div>
-      <span class="toggle-label">📚 知识库</span>
+      <span class="toggle-label">知识库</span>
     </div>
 
     <div class="tools-btn-wrap" id="toolsBtnWrap">
       <div class="tools-btn" id="toolsBtn" onclick="toggleToolPicker()">
-        <span>✨</span>
+        <span>⌘</span>
         <span>工具</span>
         <span class="tool-count" id="toolCount" style="display:none">0</span>
       </div>
@@ -902,15 +912,15 @@ body {
       </div>
     </div>
 
-    <div class="controls-right" id="modeHint">💬 直接对话模式</div>
+    <div class="controls-right" id="modeHint">直接对话</div>
   </div>
 
   <!-- Messages -->
   <div class="messages" id="messages">
     <div class="welcome" id="welcome">
-      <div class="welcome-icon">🌸</div>
-      <div class="welcome-title">こんにちは～有什么我能帮你的？</div>
-      <div class="welcome-desc">✨ 开启知识库可检索你上传的文件；选择工具后，我会自动推理并调用它们完成任务。</div>
+      <div class="welcome-icon">AI</div>
+      <div class="welcome-title">今天想处理什么？</div>
+      <div class="welcome-desc">开启知识库可检索上传文件；选择工具后，我会自动规划并执行任务。</div>
     </div>
   </div>
 
@@ -919,14 +929,14 @@ body {
     <div class="input-row">
       <textarea class="input-box" id="input" placeholder="输入消息，Enter 发送，Shift+Enter 换行…" rows="1"
         onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
-      <button class="send-btn" id="sendBtn" onclick="handleSendBtn()">✨</button>
+      <button class="send-btn" id="sendBtn" onclick="handleSendBtn()" aria-label="发送消息">↑</button>
     </div>
     <div class="input-hint">
-      <span class="hint-chip" onclick="qs('你是谁？')">🎀 你是谁</span>
-      <span class="hint-chip" onclick="qs('现在几点？')">🕐 现在几点</span>
-      <span class="hint-chip" onclick="qs('北京天气怎么样？')">🌤️ 北京天气</span>
-      <span class="hint-chip" onclick="qs('我喜欢周杰伦的音乐')">💜 记住偏好</span>
-      <span class="hint-chip" onclick="qs('执行lscpu命令查看CPU信息')">💻 终端命令</span>
+      <span class="hint-chip" onclick="qs('你是谁？')">你是谁</span>
+      <span class="hint-chip" onclick="qs('现在几点？')">现在几点</span>
+      <span class="hint-chip" onclick="qs('北京天气怎么样？')">北京天气</span>
+      <span class="hint-chip" onclick="qs('我喜欢周杰伦的音乐')">记住偏好</span>
+      <span class="hint-chip" onclick="qs('执行lscpu命令查看CPU信息')">终端命令</span>
     </div>
   </div>
 </div>
@@ -952,39 +962,6 @@ body {
 </div>
 
 <script>
-// ══════════════════════════════════════════
-//  Background Decorations
-// ══════════════════════════════════════════
-function initBgDecor() {
-  const el = document.getElementById('bgDecor');
-  const stars = ['✦','✧','⋆','·','✶'];
-  const sakuras = ['🌸','🏵️','✿','❀'];
-  // Floating stars
-  for (let i = 0; i < 18; i++) {
-    const s = document.createElement('span');
-    s.className = 'star';
-    s.textContent = stars[Math.floor(Math.random()*stars.length)];
-    s.style.left = Math.random()*100 + '%';
-    s.style.top = Math.random()*100 + '%';
-    s.style.animationDelay = Math.random()*4 + 's';
-    s.style.animationDuration = (3 + Math.random()*3) + 's';
-    s.style.fontSize = (8 + Math.random()*8) + 'px';
-    el.appendChild(s);
-  }
-  // Falling sakura
-  for (let i = 0; i < 8; i++) {
-    const s = document.createElement('span');
-    s.className = 'sakura';
-    s.textContent = sakuras[Math.floor(Math.random()*sakuras.length)];
-    s.style.left = Math.random()*100 + '%';
-    s.style.animationDelay = Math.random()*12 + 's';
-    s.style.animationDuration = (8 + Math.random()*8) + 's';
-    s.style.fontSize = (10 + Math.random()*8) + 'px';
-    el.appendChild(s);
-  }
-}
-initBgDecor();
-
 // ══════════════════════════════════════════
 //  State
 // ══════════════════════════════════════════
@@ -1060,7 +1037,7 @@ function renderSessions() {
   }
   el.innerHTML = sessions.map(s => `
     <div class="session-item ${s.id === currentId ? 'active' : ''}" onclick="switchSession('${s.id}')">
-      <span class="sess-dot">🌸</span>
+      <span class="sess-dot">●</span>
       <div class="sess-info">
         <div class="sess-title">${s.title}</div>
         <div class="sess-meta">${new Date(s.ts).toLocaleDateString('zh', {month:'short', day:'numeric'})}</div>
@@ -1307,11 +1284,11 @@ async function loadTools() {
 }
 
 function renderPicker() {
-  const toolIcons = { get_time:'🕐', get_weather:'🌤️', search_web:'🔍', rag_search:'🌸', exec_command:'💻' };
+  const toolIcons = { current_time:'T', weather:'W', search_web:'S', rag_search:'R', exec_command:'>_', write_document:'D', list_documents:'L' };
   document.getElementById('pickerItems').innerHTML = availableTools.map(t => `
     <label class="picker-item">
       <input type="checkbox" value="${t.name}" onchange="onToolCheck()" ${selectedTools.includes(t.name)?'checked':''}>
-      <span class="picker-item-icon">${toolIcons[t.name] || '✨'}</span>
+      <span class="picker-item-icon">${toolIcons[t.name] || '•'}</span>
       <div class="picker-item-info">
         <div class="p-name">${t.name}${t.is_mcp ? '<span class="picker-item-mcp">MCP</span>' : ''}</div>
         <div class="p-desc">${t.description || t.desc || ''}</div>
@@ -1370,13 +1347,13 @@ document.addEventListener('click', e => {
 function updateModeHint() {
   const el = document.getElementById('modeHint');
   if (selectedTools.length > 0) {
-    el.textContent = `✨ 工具模式 · ${selectedTools.join(', ')}`;
+    el.textContent = `工具 · ${selectedTools.join(', ')}`;
     el.style.color = 'var(--primary-d)';
   } else if (ragOn) {
-    el.textContent = '📚 知识库增强模式';
+    el.textContent = '知识库增强';
     el.style.color = 'var(--pink-d)';
   } else {
-    el.textContent = '💬 直接对话模式';
+    el.textContent = '直接对话';
     el.style.color = 'var(--text3)';
   }
 }
@@ -1386,7 +1363,7 @@ function updateModeHint() {
 // ══════════════════════════════════════════
 function clearMessages() {
   const el = document.getElementById('messages');
-  el.innerHTML = '<div class="welcome" id="welcome"><div class="welcome-icon">🌸</div><div class="welcome-title">こんにちは～有什么我能帮你的？</div><div class="welcome-desc">✨ 开启知识库可检索你上传的文件；选择工具后，我会自动推理并调用它们完成任务。</div></div>';
+  el.innerHTML = '<div class="welcome" id="welcome"><div class="welcome-icon">AI</div><div class="welcome-title">今天想处理什么？</div><div class="welcome-desc">开启知识库可检索上传文件；选择工具后，我会自动规划并执行任务。</div></div>';
 }
 
 function hideWelcome() {
@@ -1399,7 +1376,7 @@ function appendBubble(role, html, isHtml = false) {
   const wrap = document.createElement('div');
   wrap.className = 'msg-row ' + role;
   const name = role === 'user' ? '你' : 'AI 小助手';
-  const icon = role === 'user' ? '🌸' : '🐱';
+  const icon = role === 'user' ? '你' : 'A';
   wrap.innerHTML = `
     <div class="avatar ${role}">${icon}</div>
     <div class="msg-body">
@@ -1426,7 +1403,7 @@ function buildReply(data) {
   const parts = [];
 
   if (data.extracted_info) {
-    parts.push(`<div class="memory-note">💎 ${escHtml(data.extracted_info)}</div>`);
+    parts.push(`<div class="memory-note">记忆 · ${escHtml(data.extracted_info)}</div>`);
   }
 
   const hasSteps   = data.steps  && data.steps.length > 0;
@@ -1443,10 +1420,10 @@ function buildReply(data) {
 
     if (hasSteps) {
       const typeMap = {
-        'Thought':      ['step-thought',     '💭 思考'],
-        'Action':       ['step-action',       '⚡ 动作'],
-        'Observation':  ['step-observation',  '🔍 观察'],
-        'Final Answer': ['step-final',        '✨ 汇总'],
+        'Thought':      ['step-thought',     '思考'],
+        'Action':       ['step-action',       '动作'],
+        'Observation':  ['step-observation',  '观察'],
+        'Final Answer': ['step-final',        '汇总'],
       };
       for (const s of data.steps) {
         const [cls, label] = typeMap[s.type] || ['step-thought', s.type];
@@ -1494,7 +1471,7 @@ function buildReply(data) {
   }
 
   if (data.interrupted) {
-    parts.push('<div class="interrupted-badge">🌸 已中断</div>');
+    parts.push('<div class="interrupted-badge">已中断</div>');
   }
 
   parts.push(`<div class="answer-text">${escHtml(data.answer || '')}</div>`);
@@ -1538,7 +1515,7 @@ function setLoadingState(loading) {
     btn.classList.add('stop');
     btn.disabled = false;
   } else {
-    btn.textContent = '✨';
+    btn.textContent = '↑';
     btn.classList.remove('stop');
     btn.disabled = false;
   }
@@ -1563,7 +1540,7 @@ async function send() {
   aiWrap.className = 'msg-row ai';
   const thinkId = 'think_' + Date.now();
   aiWrap.innerHTML = `
-    <div class="avatar ai">🐱</div>
+    <div class="avatar ai">A</div>
     <div class="msg-body">
       <div class="msg-name">AI 小助手</div>
       <div class="bubble ai">
@@ -1656,17 +1633,17 @@ async function send() {
             break;
           }
           case 'memory': {
-            memoryEl.innerHTML = `<div class="memory-note">💎 ${escHtml(data.extracted_info || '')}</div>`;
+            memoryEl.innerHTML = `<div class="memory-note">记忆 · ${escHtml(data.extracted_info || '')}</div>`;
             memoryEl.style.display = '';
             break;
           }
           case 'step': {
             thinkWrap.style.display = '';
             const typeMap = {
-              'Thought':      ['step-thought',     '💭 思考'],
-              'Action':       ['step-action',       '⚡ 动作'],
-              'Observation':  ['step-observation',  '🔍 观察'],
-              'Final Answer': ['step-final',        '✨ 汇总'],
+              'Thought':      ['step-thought',     '思考'],
+              'Action':       ['step-action',       '动作'],
+              'Observation':  ['step-observation',  '观察'],
+              'Final Answer': ['step-final',        '汇总'],
             };
             const [cls, label] = typeMap[data.type] || ['step-thought', data.type];
             let paramsHtml = '';
@@ -1683,9 +1660,9 @@ async function send() {
           case 'tool_call': {
             const paramsStr = data.params ? JSON.stringify(data.params) : '{}';
             toolCallEl.innerHTML = `<div class="tool-call-block">
-              <div class="tool-call-row"><span class="tool-call-label">工具</span><span class="tool-call-val">${escHtml(data.tool_name)}</span></div>
+              <div class="tool-call-row"><span class="tool-call-label">工具</span><span class="tool-call-val">${escHtml(data.tool || data.tool_name || '')}</span></div>
               <div class="tool-call-row"><span class="tool-call-label">参数</span><span class="tool-call-val" style="font-family:monospace">${escHtml(paramsStr)}</span></div>
-              <div class="tool-call-row"><span class="tool-call-label">结果</span><span class="tool-call-val tool-call-result">${escHtml(data.tool_result || '')}</span></div>
+              <div class="tool-call-row"><span class="tool-call-label">结果</span><span class="tool-call-val tool-call-result">${escHtml(data.result || data.tool_result || '')}</span></div>
             </div>`;
             toolCallEl.style.display = '';
             break;
@@ -1718,8 +1695,16 @@ async function send() {
               answerEl.innerHTML = `<div class="answer-text">${escHtml(answerText)}</div>`;
             }
             if (data.interrupted) {
-              answerEl.innerHTML = `<div class="interrupted-badge">🌸 已中断</div>` + answerEl.innerHTML;
+              answerEl.innerHTML = `<div class="interrupted-badge">已中断</div>` + answerEl.innerHTML;
             }
+            break;
+          }
+          case 'error': {
+            // 后端异常时结束加载动画，并显示可理解的错误信息。
+            const typing3 = answerEl.querySelector('.typing');
+            if (typing3) typing3.remove();
+            answerText = `❌ ${data.message || '任务处理失败，请稍后重试'}`;
+            answerEl.innerHTML = `<div class="answer-text">${escHtml(answerText)}</div>`;
             break;
           }
         }
@@ -1751,8 +1736,8 @@ async function send() {
     const typing = answerEl.querySelector('.typing');
     if (typing) typing.remove();
     if (e.name === 'AbortError') {
-      answerEl.innerHTML = `<div class="answer-text">🌸 已中断</div>`;
-      pushMessage('ai', '🌸 已中断');
+      answerEl.innerHTML = `<div class="answer-text">已中断</div>`;
+      pushMessage('ai', '已中断');
     } else {
       answerEl.innerHTML = `<div class="answer-text">❌ 请求失败，请检查服务是否正常运行。</div>`;
       pushMessage('ai', '❌ 请求失败');
