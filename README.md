@@ -1,4 +1,4 @@
-# AGI Assistant（Python）
+# AGI-wx
 
 基于 Python 3.12、FastAPI 和 asyncio 的多能力智能体系统。支持普通对话、RAG、工具调用、ReAct 任务图、三层记忆、知识图谱、沙箱和 MCP 工具。
 
@@ -40,7 +40,7 @@ src/agi_assistant/
 ```bash
 conda activate test1-rag
 python -m pip install -e '.[dev]'
-agi-assistant
+agi-wx
 ```
 
 访问：<http://localhost:8090>
@@ -60,10 +60,12 @@ llm:
   api_key: "${DEEPSEEK_API_KEY}"
 ```
 
+本地运行时可复制 `.env.example` 为 `.env` 并填写 DeepSeek API Key；应用会自动读取该文件，`.env` 已被 Git 忽略。
+
 可通过 `AGI_CONFIG` 指定其他配置文件：
 
 ```bash
-AGI_CONFIG=config/config.docker.yaml agi-assistant
+AGI_CONFIG=config/config.docker.yaml agi-wx
 ```
 
 未配置 LLM 或外部数据库时，系统使用本地 Mock、内存检索和日志事件降级，HTTP 服务仍可启动。

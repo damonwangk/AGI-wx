@@ -1,5 +1,5 @@
 [project]
-name = "agi-assistant"
+name = "agi-wx"
 version = "1.0.0"
 description = "支持 RAG、记忆、工具与任务图的 Python 智能体系统"
 readme = "README.md"
@@ -11,6 +11,7 @@ dependencies = [
   "pydantic>=2.10",
   "PyYAML>=6.0",
   "python-multipart>=0.0.20",
+  "python-dotenv>=1.0",
   "pypdf>=5.1",
   "psycopg[binary]>=3.2",
   "elasticsearch[async]>=8.17,<9",
@@ -23,7 +24,7 @@ dependencies = [
 dev = ["pytest>=8.3", "pytest-asyncio>=0.25", "ruff>=0.9"]
 
 [project.scripts]
-agi-assistant = "agi_assistant.main:run"
+agi-wx = "agi_assistant.main:run"
 
 [build-system]
 requires = ["hatchling"]

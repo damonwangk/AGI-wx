@@ -33,7 +33,7 @@ class LLMClient:
         payload = {
             "model": self.config.llm.model,
             "temperature": self.config.llm.temperature,
-            "messages": [{"role": "system", "content": system}, *messages],
+            "messages": self._normalize_messages(system, messages),
         }
         try:
             response = await self.client.post(
@@ -57,7 +57,7 @@ class LLMClient:
             "model": self.config.llm.model,
             "temperature": self.config.llm.temperature,
             "stream": True,
-            "messages": [{"role": "system", "content": system}, *messages],
+            "messages": self._normalize_messages(system, messages),
         }
         try:
             async with self.client.stream(
@@ -112,6 +112,20 @@ class LLMClient:
     def _mock(messages: list[dict[str, str]]) -> str:
         latest = messages[-1]["content"] if messages else ""
         return f"[Mock 模式] 已收到：{latest}"
+
+    @staticmethod
+    def _normalize_messages(system: str, messages: list[dict[str, str]]) -> list[dict[str, str]]:
+        """将内部工具观察转换为 DeepSeek 可接受的普通消息。"""
+        normalized = [{"role": "system", "content": system}]
+        for message in messages:
+            role = message.get("role", "user")
+            content = message.get("content", "")
+            if role == "tool":
+                # 这里没有对应的 tool_call_id，因此不能直接发送 OpenAI tool 角色。
+                normalized.append({"role": "user", "content": f"工具观察：{content}"})
+            else:
+                normalized.append({"role": role, "content": content})
+        return normalized
 
 
 def parse_json_payload(text: str, fallback: Any) -> Any:

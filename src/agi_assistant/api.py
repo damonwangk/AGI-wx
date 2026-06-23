@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 from contextlib import asynccontextmanager
 from dataclasses import asdict
 from pathlib import Path
@@ -18,6 +19,8 @@ from .config import AppConfig, load_config
 from .documents import parse_document
 from .infrastructure import Infrastructure
 from .models import ChatOptions, ChatRequest, StreamEvent
+
+logger = logging.getLogger(__name__)
 
 
 def create_app(config: AppConfig | None = None, connect_infrastructure: bool = True) -> FastAPI:
@@ -34,7 +37,7 @@ def create_app(config: AppConfig | None = None, connect_infrastructure: bool = T
         await agent.close()
         await infra.close()
 
-    app = FastAPI(title="AGI Assistant", version="1.0.0", lifespan=lifespan)
+    app = FastAPI(title="AGI-wx", version="1.0.0", lifespan=lifespan)
     app.state.config, app.state.infra, app.state.agent = cfg, infra, agent
 
     @app.post("/api/chat")
@@ -51,7 +54,18 @@ def create_app(config: AppConfig | None = None, connect_infrastructure: bool = T
                 await queue.put(event)
 
             options = ChatOptions(use_rag=body.use_rag, selected_tools=body.selected_tools, explicit=body.explicit)
-            worker = asyncio.create_task(agent.process(body.message, options, emit))
+
+            async def run_worker() -> None:
+                """确保后台异常也会通知 SSE 消费端结束等待。"""
+                try:
+                    await agent.process(body.message, options, emit)
+                except Exception:  # noqa: BLE001 - 对外统一返回安全错误信息
+                    logger.exception("流式对话处理失败")
+                    await queue.put(StreamEvent(type="error", data={"message": "任务处理失败，请稍后重试"}))
+                finally:
+                    await queue.put(None)
+
+            worker = asyncio.create_task(run_worker())
             while True:
                 event = await queue.get()
                 if event is None:

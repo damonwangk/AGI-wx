@@ -16,6 +16,51 @@ from .sandbox import Sandbox
 ToolHandler = Callable[[dict[str, Any]], Awaitable[str]]
 
 
+def _clean_city_query(value: str) -> str:
+    """从自然语言天气问题中提取城市名称。"""
+    city = value.strip().rstrip("？?。！!")
+    for suffix in ("天气怎么样", "天气如何", "的天气", "天气", "气温怎么样", "气温如何", "气温"):
+        if city.endswith(suffix):
+            city = city[: -len(suffix)].strip()
+            break
+    return city or "北京"
+
+
+def _weather_description(code: int) -> str:
+    """将 Open-Meteo 的 WMO 天气代码转换为中文描述。"""
+    descriptions = {
+        0: "晴",
+        1: "晴间多云",
+        2: "多云",
+        3: "阴",
+        45: "雾",
+        48: "雾凇",
+        51: "小毛毛雨",
+        53: "中等毛毛雨",
+        55: "强毛毛雨",
+        56: "轻度冻毛毛雨",
+        57: "强冻毛毛雨",
+        61: "小雨",
+        63: "中雨",
+        65: "大雨",
+        66: "轻度冻雨",
+        67: "强冻雨",
+        71: "小雪",
+        73: "中雪",
+        75: "大雪",
+        77: "米雪",
+        80: "小阵雨",
+        81: "中阵雨",
+        82: "强阵雨",
+        85: "小阵雪",
+        86: "大阵雪",
+        95: "雷暴",
+        96: "雷暴伴轻度冰雹",
+        99: "雷暴伴强冰雹",
+    }
+    return descriptions.get(code, f"未知天气代码 {code}")
+
+
 class Tool(BaseModel):
     name: str
     description: str
@@ -73,8 +118,46 @@ class ToolRegistry:
             return datetime.now().astimezone().isoformat(timespec="seconds")
 
         async def weather(params: dict[str, Any]) -> str:
-            city = str(params.get("city", "当前城市"))
-            return f"{city}天气工具未配置实时数据源，请使用 search_web 查询。"
+            city = _clean_city_query(str(params.get("city", "北京")))
+            try:
+                async with httpx.AsyncClient(timeout=10) as client:
+                    location_response = await client.get(
+                        "https://geocoding-api.open-meteo.com/v1/search",
+                        params={"name": city, "count": 1, "language": "zh", "format": "json"},
+                    )
+                    location_response.raise_for_status()
+                    locations = location_response.json().get("results", [])
+                    if not locations:
+                        return f"未找到城市“{city}”，请检查城市名称。"
+                    location = locations[0]
+                    weather_response = await client.get(
+                        "https://api.open-meteo.com/v1/forecast",
+                        params={
+                            "latitude": location["latitude"],
+                            "longitude": location["longitude"],
+                            "current": (
+                                "temperature_2m,apparent_temperature,relative_humidity_2m,"
+                                "precipitation,weather_code,wind_speed_10m"
+                            ),
+                            "timezone": "auto",
+                        },
+                    )
+                    weather_response.raise_for_status()
+                payload = weather_response.json()
+                current = payload["current"]
+                units = payload.get("current_units", {})
+                description = _weather_description(int(current["weather_code"]))
+                return (
+                    f"{location['name']}当前天气（{current['time']}）：{description}，"
+                    f"温度 {current['temperature_2m']}{units.get('temperature_2m', '°C')}，"
+                    f"体感 {current['apparent_temperature']}{units.get('apparent_temperature', '°C')}，"
+                    f"湿度 {current['relative_humidity_2m']}{units.get('relative_humidity_2m', '%')}，"
+                    f"降水 {current['precipitation']}{units.get('precipitation', 'mm')}，"
+                    f"风速 {current['wind_speed_10m']}{units.get('wind_speed_10m', 'km/h')}。"
+                    "数据来源：Open-Meteo。"
+                )
+            except (httpx.HTTPError, KeyError, TypeError, ValueError, IndexError):
+                return "实时天气服务暂时不可用，请稍后重试。"
 
         async def search_web(params: dict[str, Any]) -> str:
             query = str(params.get("query", ""))
